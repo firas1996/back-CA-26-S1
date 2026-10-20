@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
+const ticketRoutes = require("./routes/ticketRoutes");
 
 dotenv.config({ path: "./.env" });
 
@@ -17,7 +18,7 @@ mongoose
 const app = express();
 app.use(express.json());
 app.use("/users", userRoutes);
-
+app.use("/tickets", ticketRoutes);
 const port = 1234;
 
 app.listen(port, () => {
