@@ -6,7 +6,7 @@ const {
   updateUserByid,
   deleteUserByid,
 } = require("../controllers/userController");
-const { protectorMW, checkRoleMW } = require("../utils/middleware");
+const { protectorMW, checkRoleMW, isMineMW } = require("../utils/middleware");
 const router = require("express").Router();
 
 router.post("/auth", signIn);
@@ -17,8 +17,8 @@ router
   .get([protectorMW, checkRoleMW("admin", "user"), getUsers]);
 router
   .route("/:id")
-  .get(getUserByid)
-  .patch(updateUserByid)
+  .get([protectorMW, isMineMW("owner"), getUserByid])
+  .patch([updateUserByid])
   .delete(deleteUserByid);
 
 module.exports = router;

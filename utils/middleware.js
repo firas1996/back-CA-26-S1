@@ -31,6 +31,7 @@ exports.protectorMW = async (req, res, next) => {
       });
     }
     req.role = user.role;
+    req.userId = user._id.toString();
     next();
   } catch (error) {
     res.status(400).json({
@@ -45,6 +46,26 @@ exports.checkRoleMW = (...roles) => {
       if (!roles.includes(req.role)) {
         return res.status(403).json({
           message: "You dont have the permision !!!",
+        });
+      }
+      next();
+    } catch (error) {
+      res.status(400).json({
+        message: "Error !",
+      });
+    }
+  };
+};
+
+exports.isMineMW = (property) => {
+  return async (req, res, next) => {
+    try {
+      if (
+        req.role != "admin" &&
+        req.userId != req.ressource[property].toString()
+      ) {
+        return res.status(403).json({
+          message: "You are not allowd to do this !!!!",
         });
       }
       next();
