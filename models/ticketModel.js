@@ -9,8 +9,8 @@ const ticketSchema = Schema({
   },
   status: {
     type: String,
-    enum: ["done", "not done", "on it"],
-    default: "on it",
+    enum: ["Done", "In_Progress", "Closed"],
+    default: "In_Progress",
   },
   assigned_to: {
     type: String,
