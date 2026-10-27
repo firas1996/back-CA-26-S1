@@ -14,7 +14,7 @@ const ticketSchema = Schema({
   },
   assigned_to: {
     type: String,
-    userid: ObjectId,
+    userid: [ObjectId],
   },
 });
 const Ticket = model("Ticket", ticketSchema);
